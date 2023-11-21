@@ -5,18 +5,16 @@
 import os
 import sys
 import sqlalchemy
-from sqlalchemy import create_engine, union, select
+from sqlalchemy import (create_engine)
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker, scoped_session
-from models.base_model import BaseModel, Base
+from models.base_model import Base
 from models.user import User
 from models.state import State
 from models.city import City
 from models.place import Place
 from models.review import Review
 from models.amenity import Amenity
-
-Base = declarative_base()
 
 
 class DBStorage:
@@ -32,10 +30,12 @@ class DBStorage:
         host = os.environ.get('HBNB_MYSQL_HOST')
         db = os.environ.get('HBNB_MYSQL_DB')
         storage_type = os.environ.get('HBNB_TYPE_STORAGE')
+        env = os.environ.get('HBNB_ENV')
 
-        self.__engine = create_engine(f'mysql+mysqldb://' +
-                                      '{user}:{pwd}@{host}:3306/{db}',
+        self.__engine = create_engine('mysql+mysqldb://{}:{}@{}/{}'
+                                      .format(user, pwd, host, db),
                                       pool_pre_ping=True)
+
         if env == "test":
             Base.metadata.dro_all(self.__engine)
 

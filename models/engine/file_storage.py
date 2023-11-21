@@ -1,33 +1,33 @@
 #!/usr/bin/python3
-"""This module defines a class to manage file storage for hbnb clone"""
+
+''' Takes care of string and retrieving all changes, presistnece. '''
+
+
 import json
 
 
 class FileStorage:
-    """This class manages storage of hbnb models in JSON format"""
-    __file_path = 'file.json'
-    __objects = {}
+    ''' This class stores all created objects into a file and restores them.
+        <class 'BaseModel'> -> to_dict() -> <class 'dict'> -> JSON dump ->
+        <class 'str'> -> FILE -> <class 'str'> -> JSON load -> <class 'dict'>
+        -> <class 'BaseModel'>
+    '''
+
+    def __init__(self):
+        ''' Instantization '''
+        self.__file_path = "file.json"
+        self.__objects = dict()
 
     def all(self, cls=None):
-        """Returns a dictionary of models currently in storage"""
-        if cls:
-            Dict = FileStorage.__objects
-            for objct in Dict:
-                i = 0
-                if type(objct) == cls:
-                    Dict[i] = objct
-                    i = i + 1
-            return Dict
-
-        else:
-            return FileStorage.__objects
+        ''' Prints sll elements of the private attr objects '''
+        return self.__objects
 
     def new(self, obj):
-        """Adds new object to storage dictionary"""
-        self.all().update({obj.to_dict()['__class__'] + '.' + obj.id: obj})
+        ''' Sets in __objects the obj with key <obj class name>.id '''
+        self.__objects[obj.__class__.__name__ + "." + obj.id] = obj
 
     def save(self):
-        """Saves storage dictionary to file"""
+        ''' Saves objects into a file specified by __file_path. '''
 
         filename = self.__file_path
         # Saves the data that will be written to the file
@@ -48,36 +48,46 @@ class FileStorage:
             json.dump(data_to_write, f)
 
     def reload(self):
-        """Loads storage dictionary from file"""
+        ''' deserializes the JSON file to __objects
+            (only if the JSON file (__file_path) exists; otherwise, do nothing)
+        '''
+
+        # Putting these import statements in the beginning was causing issues.
         from models.base_model import BaseModel
         from models.user import User
-        from models.place import Place
-        from models.state import State
         from models.city import City
         from models.amenity import Amenity
+        from models.place import Place
         from models.review import Review
+        from models.state import State
 
-        classes = {
-                    'BaseModel': BaseModel, 'User': User, 'Place': Place,
-                    'State': State, 'City': City, 'Amenity': Amenity,
-                    'Review': Review
-                  }
+        filename = self.__file_path
+
+        # Create a dictionary to map class names to their corresponding classes
+        class_mapping = {
+                'BaseModel': BaseModel,
+                'User': User,
+                'State': State,
+                'City': City,
+                'Amenity': Amenity,
+                'Place': Place,
+                'Review': Review
+                }
         try:
-            temp = {}
-            with open(FileStorage.__file_path, 'r') as f:
-                temp = json.load(f)
-                for key, val in temp.items():
-                    self.all()[key] = classes[val['__class__']](**val)
+            with open(filename, "r", encoding="utf-8") as f:
+                list_of_dicts = json.loads(f.read())
+
+            for key, value in list_of_dicts.items():
+                # Saves the class name and object id
+                class_name, obj_id = key.split(".")
+
+                # Creates an instance of each dict
+                class_reference = class_mapping.get(class_name)
+
+                if class_reference:
+                    instance = class_reference(**value)
+                    self.__objects[key] = instance
+
         except FileNotFoundError:
+            # Don't do nothing if file doesn't exist
             pass
-
-    def delete(self, obj=None):
-        ''' Deletes object from __objects if it's inside.
-            Does nothing if obj is None '''
-
-        if obj is not None:
-            Dict = FileStorage.__objects
-            for key, objct in Dict.items():
-                if objct == obj:
-                    del Dict[key]
-                    break
