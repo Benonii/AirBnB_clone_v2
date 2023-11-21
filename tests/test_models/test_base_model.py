@@ -6,6 +6,7 @@ import datetime
 from uuid import UUID
 import json
 import os
+import sqlalchemy
 
 
 class test_basemodel(unittest.TestCase):
@@ -24,7 +25,7 @@ class test_basemodel(unittest.TestCase):
     def tearDown(self):
         try:
             os.remove('file.json')
-        except:
+        except Exception as e:
             pass
 
     def test_default(self):

@@ -2,6 +2,7 @@
 """ Console Module """
 import cmd
 import sys
+import os
 import uuid
 from datetime import datetime
 from models.base_model import BaseModel
@@ -140,14 +141,18 @@ class HBNBCommand(cmd.Cmd):
                     new_instance.__dict__[key] = eval(value)
                 except Exception as e:
                     pass
+            # new_instance.new()
             storage.save()
             print(new_instance.id)
+            # new_instance.new()
             storage.save()
 
         else:
             new_instance = HBNBCommand.classes[argv[0]]()
+            # new_instance.new()
             storage.save()
             print(new_instance.id)
+            # new_instance.new()
             storage.save()
 
     def help_create(self):
@@ -221,20 +226,20 @@ class HBNBCommand(cmd.Cmd):
         print("Destroys an individual instance of a class")
         print("[Usage]: destroy <className> <objectId>\n")
 
-    def do_all(self, args):
+    def do_all(self, cls):
         """ Shows all objects, or all objects of a class"""
         print_list = []
 
-        if args:
-            args = args.split(' ')[0]  # remove possible trailing args
-            if args not in HBNBCommand.classes:
+        if cls:
+            cls = cls.split(' ')[0]  # remove possible trailing args
+            if cls not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
-                if k.split('.')[0] == args:
+            for k, v in storage.all(HBNBCommand.classes[cls]).items():
+                if k.split('.')[0] == cls:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)

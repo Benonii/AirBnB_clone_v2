@@ -9,9 +9,7 @@ class FileStorage:
     __objects = {}
 
     def all(self, cls=None):
-        """ Returns a dictionary of models currently in storage or a dictionary
-            of all objects in a certain class"""
-
+        """Returns a dictionary of models currently in storage"""
         if cls:
             Dict = FileStorage.__objects
             for objct in Dict:
@@ -30,12 +28,24 @@ class FileStorage:
 
     def save(self):
         """Saves storage dictionary to file"""
-        with open(FileStorage.__file_path, 'w') as f:
-            temp = {}
-            temp.update(FileStorage.__objects)
-            for key, val in temp.items():
-                temp[key] = val.to_dict()
-            json.dump(temp, f)
+
+        filename = self.__file_path
+        # Saves the data that will be written to the file
+        data_to_write = {}
+
+        for key, obj in self.__objects.items():
+            # Converts each object in __objects to a dict
+            obj_dict = obj.to_dict()
+
+            # Filter empty keys
+            filtered_dict = {k: v for k, v in obj_dict.items() if v}
+
+            if filtered_dict:
+                data_to_write[key] = filtered_dict
+
+        with open(filename, "w", encoding="utf-8") as f:
+            # Writes the dict to file.json
+            json.dump(data_to_write, f)
 
     def reload(self):
         """Loads storage dictionary from file"""
