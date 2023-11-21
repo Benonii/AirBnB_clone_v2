@@ -25,6 +25,10 @@ class FileStorage:
             for key, objct in self.__objects.items():
                 if isinstance(objct, cls):
                     Dict[key] = objct
+
+            if '_sa_instance_state' in Dict.keys():
+                del Dict['_sa_instance_state']
+
             return Dict
 
         return self.__objects
