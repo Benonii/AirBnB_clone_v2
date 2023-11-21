@@ -53,7 +53,7 @@ class BaseModel:
         dictionary.pop("_sa_instance_state", None)
 
         if '_sa_instance_state' in dictionary.keys():
-            del my_dict['sa_instance_state']
+            del dictionary['sa_instance_state']
         return dictionary
 
     def delete(self):
