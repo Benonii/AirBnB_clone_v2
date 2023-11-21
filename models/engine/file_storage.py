@@ -20,6 +20,13 @@ class FileStorage:
 
     def all(self, cls=None):
         ''' Prints sll elements of the private attr objects '''
+        if cls:
+            Dict = {}
+            for key, objct in self.__objects.items():
+                if isinstance(objct, cls):
+                    Dict[key] = objct
+            return Dict
+
         return self.__objects
 
     def new(self, obj):
@@ -95,7 +102,7 @@ class FileStorage:
     def delete(self, obj=None):
         ''' deletes obj from __objects if it's inside '''
         if obj:
-            keys_to_remove = [key for key, objct in self.__objects.items()
-                              if objct == obj]
+            keys_to_remove = [key for key, value in self.__objects.items()
+                              if value == obj]
             for key in keys_to_remove:
                 del self.__objects[key]
