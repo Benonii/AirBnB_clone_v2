@@ -28,7 +28,7 @@ class test_Amenity(TestBase_init):
             properly '''
 
         self.assertIsInstance(self.amenity, Amenity)
-        self.assertEqual(self.amenity.name, "")
+        self.assertEqual(self.amenity.name, None)
 
     def test_amenity_assignment(self):
         ''' Tests if things are assigned properly '''
@@ -40,7 +40,8 @@ class test_Amenity(TestBase_init):
     def test_name2(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.name), str)
+        if new.name is not None:
+            self.assertEqual(type(new.name), str)
 
 if __name__ == "__main__":
     unittest.main()

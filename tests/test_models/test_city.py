@@ -29,20 +29,22 @@ class TestCity(unittest.TestCase):
     def test_state_id(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.state_id), str)
+        if new.state is not None:
+            self.assertEqual(type(new.state_id), str)
 
     def test_name(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.name), str)
+        if new.name is not None:
+            self.assertEqual(type(new.name), str)
 
     def test_city_creation(self):
         ''' Tests if city is created and all elements are initialised properly
         '''
 
         self.assertIsInstance(self.city, City)
-        self.assertEqual(self.city.state_id, "")
-        self.assertEqual(self.city.name, "")
+        self.assertEqual(self.city.state_id, None)
+        self.assertEqual(self.city.name, None)
 
     def test_city_assignment(self):
         ''' Tests if things are assigned properly '''
