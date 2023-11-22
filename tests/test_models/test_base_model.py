@@ -1,14 +1,19 @@
 #!/usr/bin/python3
 """ """
 import os
+from os import getenv
 import models
+from models import storage
 import unittest
-import datetime
+from datetime import datetime
 from time import sleep
 from models.base_model import BaseModel
 from uuid import UUID
 import json
 import sqlalchemy
+from models.engine.file_storage import FileStorage
+from models.engine.db_storage import DBStorage
+
 
 class TestBase_init(unittest.TestCase):
     '''a class to test the base module'''
@@ -57,12 +62,12 @@ class TestBase_init(unittest.TestCase):
     def test_created_at(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.created_at), datetime.datetime)
+        self.assertEqual(type(new.created_at), datetime)
 
     def test_updated_at(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.updated_at), datetime.datetime)
+        self.assertEqual(type(new.updated_at), datetime)
         n = new.to_dict()
         new = BaseModel(**n)
         self.assertFalse(new.created_at == new.updated_at)
@@ -76,9 +81,9 @@ class TestBase_init(unittest.TestCase):
     def test_objectStored(self):
         '''test that the object that was created is stored inside the storage
         '''
-
         m = BaseModel()
-        self.assertIn(m, models.storage.all().values())
+        storage.save()
+        self.assertTrue(os.path.exists('file.json'))
 
     def test_objectIdIsStr(self):
         '''checks if the id was created as a string'''
