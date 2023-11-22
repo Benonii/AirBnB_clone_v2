@@ -22,15 +22,13 @@ class FileStorage:
         ''' Prints sll elements of the private attr objects '''
         if cls is not None:
             Dict = self.__objects
-            
+
             for key, objct in self.__objects.items():
+                if '_sa_instance_state' in objct.__dict__:
+                    del objct.__dict__['_sa_instance_state']
                 if isinstance(objct, cls):
                     Dict[key] = objct
 
-            for k, v in self.__objects.items():
-                if k == '_sa_instance_state':
-                    del Dict[k]
-                
                 return Dict
 
         return self.__objects
