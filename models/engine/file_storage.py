@@ -20,15 +20,11 @@ class FileStorage:
 
     def all(self, cls=None):
         ''' Prints sll elements of the private attr objects '''
+        Dict = self.__objects
         if cls is not None:
-            Dict = self.__objects
-
             for key, objct in self.__objects.items():
                 if isinstance(objct, cls):
                     Dict[key] = objct
-
-            if 'updated_at' in Dict.keys():
-                del Dict['updated_at']
 
         return Dict
 
