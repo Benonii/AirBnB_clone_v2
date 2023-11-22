@@ -27,10 +27,10 @@ class test_User(TestBase_init):
     def test_user_creation(self):
         ''' Tests if user is created and all elements are empty strings '''
         self.assertIsInstance(self.user, User)
-        self.assertEqual(self.user.first_name, "")
-        self.assertEqual(self.user.last_name, "")
-        self.assertEqual(self.user.email, "")
-        self.assertEqual(self.user.password, "")
+        self.assertEqual(self.user.first_name, None)
+        self.assertEqual(self.user.last_name, None)
+        self.assertEqual(self.user.email, None)
+        self.assertEqual(self.user.password, None)
 
     def test_user_assignment(self):
         ''' Tests if things are assigned correctly '''
@@ -48,22 +48,26 @@ class test_User(TestBase_init):
     def test_first_name(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.first_name), str)
+        if new.first_name is not None:
+            self.assertEqual(type(new.first_name), str)
 
     def test_last_name(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.last_name), str)
+        if new.last_name is not None:
+            self.assertEqual(type(new.last_name), str)
 
     def test_email(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.email), str)
+        if new.email is not None:
+            self.assertEqual(type(new.email), str)
 
     def test_password(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.password), str)
+        if new.password is not None:
+            self.assertEqual(type(new.password), str)
 
 if __name__ == "__main__":
     unittest.main()

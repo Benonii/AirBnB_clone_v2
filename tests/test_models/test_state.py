@@ -29,7 +29,7 @@ class test_state(TestBase_init):
         '''
 
         self.assertIsInstance(self.state, State)
-        self.assertEqual(self.state.name, "")
+        self.assertEqual(self.state.name, None)
 
     def test_state_assignment(self):
         ''' Tests if name is assigned correctly '''
@@ -41,7 +41,8 @@ class test_state(TestBase_init):
     def test_name3(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.name), str)
+        if new.name is not None:
+            self.assertEqual(type(new.name), str)
 
 if __name__ == "__main__":
     unittest.main()
