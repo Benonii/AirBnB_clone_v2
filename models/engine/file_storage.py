@@ -24,14 +24,13 @@ class FileStorage:
             Dict = self.__objects
 
             for key, objct in self.__objects.items():
-                if '_sa_instance_state' in objct.__dict__:
-                    del objct.__dict__['_sa_instance_state']
                 if isinstance(objct, cls):
                     Dict[key] = objct
 
-                return Dict
+            if 'updated_at' in Dict.keys():
+                del Dict['updated_at']
 
-        return self.__objects
+        return Dict
 
     def new(self, obj):
         ''' Setsj_dic in __objects the obj with key <obj class name>.id '''
