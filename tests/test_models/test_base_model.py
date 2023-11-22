@@ -1,11 +1,13 @@
 #!/usr/bin/python3
 """ """
-from models.base_model import BaseModel
+import os
+import models
 import unittest
 import datetime
+from time import sleep
+from models.base_model import BaseModel
 from uuid import UUID
 import json
-import os
 import sqlalchemy
 
 class TestBase_init(unittest.TestCase):
@@ -125,6 +127,22 @@ class TestBase_init(unittest.TestCase):
 class TestBase_str(unittest.TestCase):
     '''a class to test the str function'''
 
+    def __init__(self, *args, **kwargs):
+        """ """
+        super().__init__(*args, **kwargs)
+        self.name = 'BaseModel'
+        self.value = BaseModel
+
+    def setUp(self):
+        """ """
+        pass
+
+    def tearDown(self):
+        try:
+            os.remove('file.json')
+        except:
+            pass
+
     def test_strIsStr(self):
         '''checks if the str function prints a string'''
 
@@ -148,6 +166,22 @@ class TestBase_str(unittest.TestCase):
 class TestBase_save(unittest.TestCase):
     '''a class to test the save function'''
 
+    def __init__(self, *args, **kwargs):
+        """ """
+        super().__init__(*args, **kwargs)
+        self.name = 'BaseModel'
+        self.value = BaseModel
+
+    def setUp(self):
+        """ """
+        pass
+
+    def tearDown(self):
+        try:
+            os.remove('file.json')
+        except:
+            pass
+
     def test_isUpdated(self):
         '''checks if the time was changed when save & it is the right time'''
 
@@ -170,6 +204,22 @@ class TestBase_save(unittest.TestCase):
 
 class TestBase_dict(unittest.TestCase):
     '''a class to test the to_dict function'''
+    
+    def __init__(self, *args, **kwargs):
+        """ """
+        super().__init__(*args, **kwargs)
+        self.name = 'BaseModel'
+        self.value = BaseModel
+
+    def setUp(self):
+        """ """
+        pass
+
+    def tearDown(self):
+        try:
+            os.remove('file.json')
+        except:
+            pass
 
     def test_isAttributeThere(self):
         '''checks if the directory have all of the attributes of the class'''
