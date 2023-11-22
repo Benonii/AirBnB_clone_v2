@@ -20,21 +20,23 @@ class FileStorage:
 
     def all(self, cls=None):
         ''' Prints sll elements of the private attr objects '''
-        if cls:
-            Dict = {}
+        if cls is not None:
+            Dict = self.__objects
+            
             for key, objct in self.__objects.items():
                 if isinstance(objct, cls):
                     Dict[key] = objct
 
-            if '_sa_instance_state' in Dict.keys():
-                del Dict['_sa_instance_state']
-
-            return Dict
+            for k, v in self.__objects.items():
+                if k == '_sa_instance_state':
+                    del Dict[k]
+                
+                return Dict
 
         return self.__objects
 
     def new(self, obj):
-        ''' Sets in __objects the obj with key <obj class name>.id '''
+        ''' Setsj_dic in __objects the obj with key <obj class name>.id '''
         self.__objects[obj.__class__.__name__ + "." + obj.id] = obj
 
     def save(self):
