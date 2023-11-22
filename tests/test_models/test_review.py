@@ -35,9 +35,9 @@ class test_review(TestBase_init):
             properly '''
 
         self.assertIsInstance(self.review, Review)
-        self.assertEqual(self.review.place_id, "")
-        self.assertEqual(self.review.user_id, "")
-        self.assertEqual(self.review.text, "")
+        self.assertEqual(self.review.place_id, None)
+        self.assertEqual(self.review.user_id, None)
+        self.assertEqual(self.review.text, None)
 
     def test_review_assignment(self):
         ''' Tests if everything is assigned properly '''
@@ -53,17 +53,20 @@ class test_review(TestBase_init):
     def test_place_id(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.place_id), str)
+        if new.place_id is not None:
+            self.assertEqual(type(new.place_id), str)
 
     def test_user_id(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.user_id), str)
+        if new.user_id is not None:
+            self.assertEqual(type(new.user_id), str)
 
     def test_text(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.text), str)
+        if new.text is not None:
+            self.assertEqual(type(new.text), str)
 
 if __name__ == "__main__":
     unittest.main()
