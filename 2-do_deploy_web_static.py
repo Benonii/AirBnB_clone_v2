@@ -3,15 +3,16 @@
 ''' Distributes an archive to my web servers '''
 
 from fabric.api import run, put, env
-from paramiko.pkey import PKey
 import os
-import sys
 
 env.hosts = ['54.146.81.93', '34.232.76.218']
 
 
 def do_deploy(archive_path):
     ''' deployes the archived files to the web servers '''
+
+    if os.path.exists(archive_path) is False:
+        return False
 
     archive_name = archive_path[9:]
     dir_name = archive_name[:-4]
