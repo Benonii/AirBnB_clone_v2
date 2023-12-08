@@ -16,8 +16,8 @@ def do_pack():
 
     if result.succeeded:
         local('mv web_static_{}.tgz versions'.format(filename))
-        file_path = os.path.join(os.getcwd(), 'web_static_{}.tgz'.
-                                 format(filename))
+        file_path = 'versions/web_static_{}.tgz'.format(filename)
+        print(file_path)
         return file_path
 
     else:
