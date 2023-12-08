@@ -13,8 +13,9 @@ env.hosts = ['54.146.81.93', '34.232.76.218']
 def do_deploy():
     ''' deployes the archived files to the web servers '''
 
-    if not (os.pathexists(archive_path)) is False:
-        return False
+    archive_path = "versions/web_static_20231207141839.tgz"
+    archive_name = archive_path[9:]
+    dir_name = archive_name[:-4]
 
     try:
         # Upload files to the server
@@ -38,8 +39,8 @@ def do_deploy():
         # Removes existing symbolic link
         run(f'rm -rf /data/web_static/current')
         # Create new symbolic link
-        run(f'ln -sf /data/web_static/releases/{dir_name}'
-            + f'/data/web_static/current')
+        run(f'ln -s /data/web_static/releases/{dir_name}'
+            + ' /data/web_static/current')
 
         return True
     except Exception as e:
