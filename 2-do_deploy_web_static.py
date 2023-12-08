@@ -10,10 +10,9 @@ import sys
 env.hosts = ['54.146.81.93', '34.232.76.218']
 
 
-def do_deploy():
+def do_deploy(archive_path):
     ''' deployes the archived files to the web servers '''
 
-    archive_path = "versions/web_static_20231207141839.tgz"
     archive_name = archive_path[9:]
     dir_name = archive_name[:-4]
 
