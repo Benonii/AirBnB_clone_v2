@@ -11,21 +11,17 @@ env.hosts = ['54.146.81.93', '34.232.76.218']
 def do_deploy(archive_path):
     ''' deployes the archived files to the web servers '''
 
-    if os.path.exists(archive_path) is False:
-        return False
-
-    archive_name = archive_path[9:]
-    dir_name = archive_name[:-4]
-
     try:
         # Upload files to the server
         put(archive_path, "/tmp")
-        run('cd /tmp')
+
+        archive_name = archive_path[9:]
+        dir_name = archive_name[:-4]
 
         # Make a dir for the files to be unarchived
         run('mkdir -p /data/web_static/releases/'
             + f'{dir_name}')
-        # Unarchive files into the designates folder
+        # Unarchive files into the designated folder
         run(f'tar -xzf /tmp/{archive_name} -C'
             + f' /data/web_static/releases/{dir_name}/')
         # Remove .tgz file
