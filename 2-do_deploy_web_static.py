@@ -19,8 +19,7 @@ def do_deploy(archive_path):
         dir_name = archive_name[:-4]
 
         # Make a dir for the files to be unarchived
-        run('mkdir -p /data/web_static/releases/'
-            + f'{dir_name}')
+        run(f'mkdir -p /data/web_static/releases/{dir_name}')
         # Unarchive files into the designated folder
         run(f'tar -xzf /tmp/{archive_name} -C'
             + f' /data/web_static/releases/{dir_name}/')
