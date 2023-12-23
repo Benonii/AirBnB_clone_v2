@@ -14,3 +14,8 @@ class State(BaseModel, Base):
     __tablename__ = "states"
     name = Column(String(128), nullable=False)
     cities = relationship("City", backref="state", cascade="delete")
+
+    @property
+    def cities(self):
+        ''' Gets all cities associated with the current state '''
+        return self.cities

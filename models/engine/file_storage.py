@@ -105,3 +105,6 @@ class FileStorage:
                               if value == obj]
             for key in keys_to_remove:
                 del self.__objects[key]
+
+    def close(self):
+        self.reload()
