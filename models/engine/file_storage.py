@@ -102,7 +102,7 @@ class FileStorage:
         ''' deletes obj from __objects if it's inside '''
         if obj:
             keys_to_remove = [key for key, value in self.__objects.items()
-                             if value == obj]
+                              if value == obj]
             for key in keys_to_remove:
                 del self.__objects[key]
 
