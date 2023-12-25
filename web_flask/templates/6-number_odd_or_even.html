@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<HTML lang="en">
+    <HEAD>
+        <TITLE>HBNB</TITLE>
+    </HEAD>
+    <BODY>
+	{% set number = n -%}
+	{% if number % 2 == 1 -%}
+        	<H1>{{ n }} is odd</H1>
+	{%- else -%}
+		<H1>{{ n }} is even</H1>
+	{%- endif %}
+    </BODY>
+</HTML>
