@@ -20,12 +20,13 @@ class FileStorage:
 
     def all(self, cls=None):
         ''' Prints sll elements of the private attr objects '''
-        Dict = self.__objects
+        Dict = dict()
         if cls is not None:
             for key, objct in self.__objects.items():
                 if isinstance(objct, cls):
                     Dict[key] = objct
-
+        else:
+            Dict = self.__onjects.copy()
         return Dict
 
     def new(self, obj):
