@@ -6,7 +6,7 @@ from sqlalchemy import Column
 from sqlalchemy import String
 from sqlalchemy.orm import relationship
 from os import getenv
-from models.engine.file_storage import FileStorage
+from models import storage
 
 
 class State(BaseModel, Base):
