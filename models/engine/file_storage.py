@@ -26,7 +26,7 @@ class FileStorage:
                 if isinstance(objct, cls):
                     Dict[key] = objct
         else:
-            Dict = self.__onjects.copy()
+            Dict = self.__objects.copy()
         return Dict
 
     def new(self, obj):
