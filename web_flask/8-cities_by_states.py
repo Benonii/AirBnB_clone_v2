@@ -58,10 +58,11 @@ def list_states():
     return render_template('7-states_list.html', state_list=storage.all(State))
 
 
-@app.route("/cities_by_states", strict_slahes=False)
+@app.route("/cities_by_states", strict_slashes=False)
 def list_cities_by_state():
     ''' Displays an html page with a list of cities by state '''
-    return render_template('7-states_list.html', state_list=storage.all(State))
+    return render_template('8-cities_by_states.html',
+                           state_list=storage.all(State))
 
 
 @app.teardown_appcontext
