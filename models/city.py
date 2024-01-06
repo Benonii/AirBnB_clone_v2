@@ -10,6 +10,6 @@ from sqlalchemy.orm import relationship
 
 class City(BaseModel, Base):
     """ The city class, contains state ID and name """
-    name = Column(String(128), nullable=False)
+    name = Column(String(128, collation='latin1_swedish_ci'), nullable=False)
     state_id = Column(String(60), ForeignKey("states.id"), nullable=False)
     __tablename__ = "cities"

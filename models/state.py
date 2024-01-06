@@ -13,7 +13,7 @@ class State(BaseModel, Base):
     """ State class """
 
     __tablename__ = "states"
-    name = Column(String(128), nullable=False)
+    name = Column(String(128, collation='latin1_swedish_ci'), nullable=False)
 
     if getenv("HBNB_TYPE_STORAGE") == 'fs':
         @property
