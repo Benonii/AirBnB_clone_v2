@@ -65,6 +65,19 @@ def list_cities_by_state():
                            state_list=storage.all(State))
 
 
+@app.route("/states", strict_slashes=False)
+def state_list():
+    ''' Displays an HTML page with a list of states '''
+    return render_template('7-states_list.html', state_list=storage.all(State))
+
+
+@app.route("/states/<id>", strict_slashes=False)
+def list_states_id(id):
+    ''' Displays an HTML page with a list of states and cities '''
+    return render_template('9-states.html',
+                           state_list=storage.all(State), id=id)
+
+
 @app.teardown_appcontext
 def tear_down(exc):
     ''' Takes care of tearing down the current session '''
