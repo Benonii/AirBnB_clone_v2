@@ -19,18 +19,26 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """Instatntiates a new model"""
-        if not kwargs:
+        if not kwargs.get('id'):
             self.id = str(uuid.uuid4())
+        if not kwargs.get('created_at'):
             self.created_at = datetime.now()
+        if not kwargs.get('updated_at'):
             self.updated_at = datetime.now()
 
-        else:
-            kwargs['updated_at'] = datetime.strptime(kwargs['updated_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            kwargs['created_at'] = datetime.strptime(kwargs['created_at'],
-                                                     '%Y-%m-%dT%H:%M:%S.%f')
-            del kwargs['__class__']
-            self.__dict__.update(kwargs)
+        if args:
+            if name:
+                self.name = name
+            if state_id:
+                self.state_id = state_id
+        if 'updated_at' in kwargs:
+            kwargs['updated_at'] = datetime.\
+                    strptime(kwargs['updated_at'], '%Y-%m-%dT%H:%M:%S.%f')
+            kwargs['created_at'] = datetime.\
+                strptime(kwargs['created_at'], '%Y-%m-%dT%H:%M:%S.%f')
+        '''if '__class__' in kwargs:
+            del kwargs['__class__']'''
+        self.__dict__.update(kwargs)
 
     def __str__(self):
         """Returns a string representation of the instance"""
